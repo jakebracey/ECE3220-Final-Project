@@ -8,41 +8,23 @@
  #include "fp.frontend.h"
  #include "fp.user.class.h"
  #include "fp.admin.user.class.h"
- #include "fp.ticketer.user.class.h"
- #include "fp.box.user.class.h"
  #include "fp.backend.h"
 
 
  
  int main(void){
-	 vector<user_c> user_group;
-	 vector<admin_user_c> admin_group;
-	 vector<box_user_c> box_group;
-	 vector<ticketer_user_c> ticketer_group;
 	 
-	 system_startup(user_group,admin_group,box_group,ticketer_group);
+	 Database d1;
 	 
-	 int i;
-	 cout<<endl<<endl<<"----  User Group Members  ----";
-	 for(i=0;user_group.size()>i;i++){
-		 user_group[i].displayInfo();
-	 }
+	 d1.displayUsers();
 	 
-	 cout<<endl<<endl<<"----  Admin Group Members  ----";
-	 for(i=0;admin_group.size()>i;i++){
-		 admin_group[i].displayInfo();
-	 }
+	 string num;
+	 cout<<endl<<"Enter a ID number:";
+	 cin>>num;
+	 cout<<endl<<"User Location: "<<d1.searchUsers(num);
+	 cout<<endl<<"Admin Location: "<<d1.searchAdmins(num);
 	 
-	 cout<<endl<<endl<<endl<<"----  Box Group Members  ----";
-	 for(i=0;box_group.size()>i;i++){
-		 box_group[i].displayInfo();
-	 }
-	 
-	 cout<<endl<<endl<<endl<<"----  Ticketer Group Members  ----";
-	 for(i=0;ticketer_group.size()>i;i++){
-		 ticketer_group[i].displayInfo();
-	 }
-	 cout<<endl<<endl;
+	 d1.Login();
 	 
 	 return 0;
 	 

@@ -4,42 +4,83 @@ using namespace std;
 
 
 class user_c{
-	friend class admin_user_c;
-	friend class ticket_user_c;
-	friend class box_user_c;
+	friend class Database;
 	
 	protected:
 	string ID;
 	string fname;
 	string lname;
+	double balance;
 	vector<string> tickets;
 	vector<string> tickets_used;
 	
 	public:
-	
-	//void virtual displayMenu();
-	void virtual displayInfo();
-	user_c(string f, string l, string id);
-	user_c();
 	~user_c();
+	user_c();
+	user_c(string f, string l, string id);
+	void virtual displayInfo();
+	void virtual displayMenu();
 };
+
 user_c::user_c(){
+	//ID="-1";
+	//fname="ERROR";
+	//lname="ERROR";
+	//tickets.push_back("ERROR");
+	//tickets_used.push_back("ERROR");
 
 }
 
 user_c::user_c(string f, string l, string id){
-	cout<<endl<<"User created";
+	//cout<<endl<<"User created";
 	fname=f;
 	lname=l;
 	ID=id;
+	balance=0;
 }
 
 user_c::~user_c(){
-	cout<<endl<<"User destroyed";
+	//cout<<endl<<"User destroyed";
 }
 
 void user_c::displayInfo(){
 	cout<<endl<<fname<< " "<<lname<< " " <<ID;
+}
+
+void user_c::displayMenu(){
+	int input=0;
+	cout<<endl<<"Welcome your account "<<fname<<" "<<lname<<endl;
+	
+	
+	while(input!=3){
+		cout<<endl<<"What would you like to do"<<endl
+		<<"[1] View Your Account Info"<<endl
+		<<"[2] See ticket options"<<endl
+		<<"[3] Log Out"<<endl;
+		cin>>input;
+		
+		switch(input){
+			case 1:{
+				displayInfo();
+				break;
+			}
+			
+			case 2:{
+				cout<<"Ticket options"<<endl;
+				break;
+			}
+			
+			case 3:{
+				cout<<endl<<"--------  Logging Out  --------"<<endl;
+				break;
+			}
+			
+			default:{
+				cout<<endl<<"--------  Incorrect Option Entered  --------"<<endl;
+			}
+			
+		}
+	}
 }
 
 #endif
