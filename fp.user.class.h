@@ -53,7 +53,8 @@ void user_c::displayMenu(){
 	
 	
 	while(input!=3){
-		cout<<endl<<"What would you like to do"<<endl
+		cout<<endl<<"-----------  Main Menu  -----------"<<endl<<
+					"      Please Select an Option      "<<endl<<endl
 		<<"[1] View Your Account Info"<<endl
 		<<"[2] See ticket options"<<endl
 		<<"[3] Log Out"<<endl;

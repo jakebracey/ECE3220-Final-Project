@@ -17,13 +17,13 @@
 	 Database d1;
 	 
 	 d1.displayUsers();
-	 
+	 /*
 	 string num;
 	 cout<<endl<<"Enter a ID number:";
 	 cin>>num;
 	 cout<<endl<<"User Location: "<<d1.searchUsers(num);
 	 cout<<endl<<"Admin Location: "<<d1.searchAdmins(num);
-	 
+	 */
 	 d1.Login();
 	 
 	 return 0;

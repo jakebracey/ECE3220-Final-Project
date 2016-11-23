@@ -22,6 +22,7 @@ using namespace std;
 #include <vector>
 #include <fstream>
 #include <sstream>
+#include <conio.h>
 
 
 #endif //end of fp.h
