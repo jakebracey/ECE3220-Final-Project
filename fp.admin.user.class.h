@@ -39,7 +39,7 @@ void admin_user_c::displayMenu(){
 		result=0;
 		input=-1; 
 		cout<<endl<<"---------  Access Denied  ---------"<<endl<<
-				    "     Incorrect Password Entered    "<<endl<<endl;
+				    "     Invalid Password Entered    "<<endl<<endl;
 	}	
 	if(result==1){
 	cout<<endl<<"Welcome your account "<<fname<<" "<<lname<<endl;
@@ -83,7 +83,7 @@ void admin_user_c::displayMenu(){
 				}
 				
 				default:{
-					cout<<endl<<"--------  Incorrect Option Entered  --------"<<endl;
+					cout<<endl<<"--------  Invalid Option Entered  --------"<<endl;
 				}
 				
 			}
@@ -96,8 +96,8 @@ void admin_user_c::displayMenu(){
 						"      Please Select an Option      "<<endl<<endl
 			<<"[-1] Logout"<<endl		
 			<<"[1]  Login as Regular User"<<endl
-			<<"[3]  Login as Ticketer User"<<endl
-			<<"[2]  Login as Box Office User"<<endl;
+			<<"[2]  Login as Ticketer User"<<endl
+			<<"[3]  Login as Box Office User"<<endl;
 			cin>>input;
 			
 			switch(input){
@@ -122,7 +122,7 @@ void admin_user_c::displayMenu(){
 				}
 				
 				default:{
-					cout<<endl<<"--------  Incorrect Option Entered  --------"<<endl;
+					cout<<endl<<"--------  Invalid Option Entered  --------"<<endl;
 				}
 				
 			}
@@ -155,7 +155,7 @@ void admin_user_c::displayMenu(){
 				}
 				
 				default:{
-					cout<<endl<<"--------  Incorrect Option Entered  --------"<<endl;
+					cout<<endl<<"--------  Invalid Option Entered  --------"<<endl;
 				}
 				
 			}
@@ -212,6 +212,10 @@ void admin_user_c::displayInfo(){
 }
 
 string admin_user_c::getpass(const char *prompt, bool show_asterisk){
+//Copyright notice
+//This program came from a lirary online
+//cplusplus.com is the source with an unknown author
+//To view the website go to http://www.cplusplus.com/articles/E6vU7k9E/
 
 	const char BACKSPACE=8;
 	const char RETURN=13;
@@ -250,7 +254,7 @@ string admin_user_c::getpass(const char *prompt, bool show_asterisk){
 
 
 void admin_user_c::displayUserMenu(){
-	int input_u; 
+	int input_u=0; 
 	while(input_u!=-1){
 		cout<<endl<<"-----------  User Menu  -----------"<<endl<<
 					"      Please Select an Option      "<<endl<<endl
@@ -276,7 +280,7 @@ void admin_user_c::displayUserMenu(){
 			}
 			
 			default:{
-				cout<<endl<<"--------  Incorrect Option Entered  --------"<<endl;
+				cout<<endl<<"--------  Invalid Option Entered  --------"<<endl;
 			}
 			
 		}
@@ -284,15 +288,111 @@ void admin_user_c::displayUserMenu(){
 	
 }
 void admin_user_c::displayAdminMenu(){
-	
+	int input_a=0; 
+	while(input_a!=-1){
+		cout<<endl<<"-----------  Admin Menu  -----------"<<endl<<
+					"      Please Select an Option      "<<endl<<endl
+		<<"[-1] Return to Main Menu"<<endl
+		<<"[1]  "<<endl
+		<<"[2]  See ticket options"<<endl;
+		cin>>input_a;
+		
+		switch(input_a){
+			case 1:{
+				displayInfo();
+				break;
+			}
+			
+			case 2:{
+				cout<<"Ticket options"<<endl;
+				break;
+			}
+			
+			case -1:{
+				cout<<endl<<"------  Returning to Main Menu  ------"<<endl;
+				break;
+			}
+			
+			default:{
+				cout<<endl<<"--------  Invalid Option Entered  --------"<<endl;
+			}
+			
+		}
+	}	
 	
 }
 void admin_user_c::displayBoxMenu(){
-	
+int input_b=0; 
+	while(input_b!=-1){
+		cout<<endl<<"---------  Box Office Menu  ---------"<<endl<<
+					"       Please Select an Option       "<<endl<<endl
+		<<"[-1] Return to Main Menu"<<endl
+		<<"[1]  View "<<endl
+		<<"[2]  See"<<endl
+		<<"[3]  View "<<endl;
+		cin>>input_t;
+		
+		switch(input_t){
+			case 1:{
+				displayInfo();
+				break;
+			}
+			
+			case 2:{
+				cout<<"Ticket options"<<endl;
+				break;
+			}
+			case 3:{
+				
+				break;
+			}
+			
+			case -1:{
+				cout<<endl<<"------  Returning to Main Menu  ------"<<endl;
+				break;
+			}
+			
+			default:{
+				cout<<endl<<"--------  Invalid Option Entered  --------"<<endl;
+			}
+			
+		}
+	}
 	
 }
 void admin_user_c::displayTicketerMenu(){
-	
+	int input_t=0; 
+	while(input_t!=-1){
+		cout<<endl<<"---------  Ticketer Menu  ---------"<<endl<<
+					"      Please Select an Option      "<<endl<<endl
+		<<"[-1] Return to Main Menu"<<endl
+		<<"[1]  Vi"<<endl
+		<<"[2]  See"<<endl;
+		cin>>input_t;
+		
+		switch(input_t){
+			case 1:{
+				
+				break;
+			}
+			
+			case 2:{
+				
+				break;
+			}
+
+			
+			case -1:{
+				cout<<endl<<"------  Returning to Main Menu  ------"<<endl;
+				break;
+			}
+			
+			default:{
+				cout<<endl<<"--------  Invalid Option Entered  --------"<<endl;
+			}
+			
+		}
+	}
 	
 }
 

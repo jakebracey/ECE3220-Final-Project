@@ -12,6 +12,7 @@ using namespace std;
 #define fp_backend_H_
 
 class Database{
+	friend class admin_user_c;
 	
 	
 	private:
