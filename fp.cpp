@@ -15,6 +15,7 @@
  int main(void){
 	 
 	 Database d1;
+	 EventDatabase e1;
 	 
 	 d1.displayUsers();
 	
