@@ -16,7 +16,7 @@
 	 
 	 Database d1;
 	 EventDatabase e1;
-	 
+	 e1.displayEvents();
 	 d1.displayUsers();
 	
 	 d1.Login();
