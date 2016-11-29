@@ -17,33 +17,29 @@ class admin_user_c : public user_c{
 	admin_user_c(string f, string l, string id, string pass);
 	admin_user_c(string f, string l, string id);
 	void displayInfo();
-	void displayMenu();
+	unsigned int displayMenu(bool access_check);
 	void displayUserMenu();
-	void displayAdminMenu();
-	void displayBoxMenu();
-	void displayTicketerMenu();
+	//void displayAdminMenu();
+	//void displayBoxMenu();
+	//void displayTicketerMenu();
 	string getpass(const char *prompt, bool show_asterisk);
 };
 
-void admin_user_c::displayMenu(){
+unsigned int admin_user_c::displayMenu(bool access_check){
 	string input_pass;
 	int result=0;
 	int input=0;
 	
-	
+	if(access_check){
 	input_pass=getpass("Please enter your password: ",true);
-	if(input_pass==password){
-		result=1;	
-	}
-	else{
-		result=0;
-		input=-1; 
+	
+	if(input_pass!=password){
 		cout<<endl<<"---------  Access Denied  ---------"<<endl<<
 				    "     Invalid Password Entered    "<<endl<<endl;
+					return 0;
 	}	
-	if(result==1){
-	cout<<endl<<"Welcome your account "<<fname<<" "<<lname<<endl;
 	}
+	cout<<endl<<"Welcome your account "<<fname<<" "<<lname<<endl;
 	
 	
 	if(access_level==1){//start of Admin User Level
@@ -52,33 +48,35 @@ void admin_user_c::displayMenu(){
 						"      Please Select an Option      "<<endl<<endl
 			<<"[-1] Logout"<<endl		
 			<<"[1]  Login as Regular User"<<endl
-			<<"[3]  Login as Ticketer User"<<endl
-			<<"[2]  Login as Box Office User"<<endl
+			<<"[2]  Login as Ticketer User"<<endl
+			<<"[3]  Login as Box Office User"<<endl
 			<<"[4]  Login as Admin User"<<endl;
 			cin>>input;
 			
 			switch(input){
 				case -1:{
 					cout<<endl<<"--------  Logging Out  --------"<<endl;
+					return 0;
 					break;
 				}
 				
 				case 1:{
 					displayUserMenu();
+					return 1;
 					break;
 				}
 				
 				case 2:{
-					displayTicketerMenu();
+					return 2;
 					break;
 				}
 				
 				case 3:{
-					displayBoxMenu();
+					return 3;
 					break;
 				}
 				case 4:{
-					displayAdminMenu();
+					return 4;
 					break;
 				}
 				
@@ -103,6 +101,7 @@ void admin_user_c::displayMenu(){
 			switch(input){
 				case -1:{
 					cout<<endl<<"--------  Logging Out  --------"<<endl;
+					return 0;
 					break;
 				}
 				
@@ -112,12 +111,12 @@ void admin_user_c::displayMenu(){
 				}
 				
 				case 2:{
-					displayTicketerMenu();
+					return 2;
 					break;
 				}
 				
 				case 3:{
-					displayBoxMenu();
+					return 3;
 					break;
 				}
 				
@@ -141,6 +140,7 @@ void admin_user_c::displayMenu(){
 			switch(input){
 				case -1:{
 					cout<<endl<<"--------  Logging Out  --------"<<endl;
+					return 0;
 					break;
 				}
 				
@@ -150,7 +150,7 @@ void admin_user_c::displayMenu(){
 				}
 				
 				case 2:{
-					displayTicketerMenu();
+					return 2;
 					break;
 				}
 				
@@ -287,7 +287,7 @@ void admin_user_c::displayUserMenu(){
 	}
 	
 }
-void admin_user_c::displayAdminMenu(){
+/* void admin_user_c::displayAdminMenu(){
 	int input_a=0; 
 	while(input_a!=-1){
 		cout<<endl<<"-----------  Admin Menu  -----------"<<endl<<
@@ -305,6 +305,7 @@ void admin_user_c::displayAdminMenu(){
 			
 			case 2:{
 				cout<<"Ticket options"<<endl;
+				//user_group[0].displayInfo();
 				break;
 			}
 			
@@ -330,9 +331,9 @@ int input_b=0;
 		<<"[1]  View "<<endl
 		<<"[2]  See"<<endl
 		<<"[3]  View "<<endl;
-		cin>>input_t;
+		cin>>input_b;
 		
-		switch(input_t){
+		switch(input_b){
 			case 1:{
 				displayInfo();
 				break;
@@ -394,6 +395,6 @@ void admin_user_c::displayTicketerMenu(){
 		}
 	}
 	
-}
+} */
 
 #endif

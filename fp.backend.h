@@ -27,20 +27,13 @@ class Database{
 	int searchUsers(string search_key);
 	int searchAdmins(string search_key);
 	void Login();
+	void displayAdminMenu();
+	void displayBoxMenu();
+	void displayTicketerMenu();
 
 };
 
-class EventDatabase{
-	friend class event_c;
-	
-	private:
-	vector<event_c> event_group;
-	
-	public:
-	~EventDatabase();
-	EventDatabase();
-	void displayEvents();
-};
+
 
 void Database::Login(){
 	
@@ -57,12 +50,50 @@ void Database::Login(){
 		
 		else if(searchAdmins(terminal_input)!=-1){
 			result=searchAdmins(terminal_input);
-			admin_group[result].displayMenu();
+			unsigned int admin_choice=1;
+			bool access_check=true;
+			while(admin_choice!=0){
+			
+				admin_choice=admin_group[result].displayMenu(access_check);
+				
+				if(admin_choice!=0)
+					access_check=false;
+				
+				switch(admin_choice){
+					case 0:{
+						break;
+					}
+					case 1:{
+						break;
+					}
+					
+					case 2:{
+						displayTicketerMenu();
+						break;
+					}
+					
+					case 3:{
+						displayBoxMenu();
+						break;
+					}
+					case 4:{
+						displayAdminMenu();
+						break;
+					}
+					
+					default:{
+						cout<<endl<<"--------  Access Error  --------"<<endl;
+						break;
+					}
+					
+				}
+			
+			}
 		}
 		
 		else if(searchUsers(terminal_input)!=-1){
 			result=searchUsers(terminal_input);
-			user_group[result].displayMenu();
+			user_group[result].displayUserMenu();
 		}
 		
 		else{
@@ -180,34 +211,183 @@ Database::~Database(){
 	cout<<endl<<"Database Destroyed"<<endl;
 }
 
-EventDatabase::EventDatabase(){
-	ifstream user_file("events.txt");
+
+
+void Database::displayAdminMenu(){
+	int input_a=0; 
+	while(input_a!=-1){
+		cout<<endl<<"-----------  Admin Menu  -----------"<<endl<<
+					"      Please Select an Option      "<<endl<<endl
+		<<"[-1] Return to Main Menu"<<endl
+		<<"[1]  Manage Current Users"<<endl
+		<<"[2]  View All Users"<<endl
+		<<"[3]  Create New User"<<endl
+		<<"[4]  Manage Current Events"<<endl
+		<<"[5]  View All Events"<<endl
+		<<"[6]  Create New Event"<<endl;
+		cin>>input_a;
+		
+		switch(input_a){
+			case 1:{
+				
+				break;
+			}
+			
+			case 2:{
+				displayUsers();
+				break;
+			}
+			case 3:{
+				string temp_fn, temp_ln, temp_ID,temp_password;
+				int temp_access_level;
+				cout<<"Please enter a first name: ";
+				cin>>temp_fn;
+				cout<<"Please enter a last name: ";
+				cin>>temp_ln;
+				cout<<"Please enter an ID number: ";
+				cin>>temp_ID;
+				cout<<"[0]: Regular User"<<endl
+					<<"[1]  Admin User"<<endl
+					<<"[2]  Box Office User"<<endl
+					<<"[3]  Ticketer User"<<endl;
+				cin>>temp_access_level;
+				if(temp_access_level==0){
+					cout<<endl<<"Please confirm the following information is correct"<<endl
+					<<"First Name: "<<temp_fn<<endl
+					<<"Last Name: "<<temp_ln<<endl
+					<<"Student ID: "<<temp_ID<<endl
+					<<"Access Level: "<<temp_access_level<<endl<<endl
+					<<"Please select an option, [0] Create user, [-1] Escape: ";
+					int confirmation=1;
+					cin>>confirmation;
+					if(confirmation==0){
+						user_c user_temp(temp_fn,temp_ln,temp_ID);
+						user_group.push_back(user_temp);
+					}
+					break;	
+				}
+				else if(temp_access_level>0||temp_access_level<4){
+					cout<<"Please enter a user password: ";
+					cin>>temp_password;
+					cout<<endl<<"Please confirm the following information is correct"<<endl
+					<<"First Name: "<<temp_fn<<endl
+					<<"Last Name: "<<temp_ln<<endl
+					<<"Student ID: "<<temp_ID<<endl
+					<<"Access Level: "<<temp_access_level<<endl
+					<<"Password: "<<temp_password<<endl<<endl
+					<<"Please select an option, [0] Create user, [-1] Escape: ";
+					int confirmation=1;
+					cin>>confirmation;
+					if(confirmation==0){
+						admin_user_c user_temp(temp_fn,temp_ln,temp_ID,temp_password,temp_access_level);
+						admin_group.push_back(user_temp);
+					}
+				}
+				
+				break;
+			}
+			
+			case 4:{
+				
+				break;
+			}
+			case 5:{
+				
+				break;
+			}
+			
+			case 6:{
+				
+				break;
+			}
+			
+			case -1:{
+				cout<<endl<<"------  Returning to Main Menu  ------"<<endl;
+				break;
+			}
+			
+			default:{
+				cout<<endl<<"--------  Invalid Option Entered  --------"<<endl;
+			}
+			
+		}
+	}	
 	
-	string line;
-	while(getline(user_file, line))
-	{
-		istringstream iss(line);
-		string ename;
-		double price;
-		if((iss>>ename>>price)){
-			event_c event_temp(ename, price);
-			event_group.push_back(event_temp);
+}
+void Database::displayBoxMenu(){
+int input_b=0; 
+	while(input_b!=-1){
+		cout<<endl<<"---------  Box Office Menu  ---------"<<endl<<
+					"       Please Select an Option       "<<endl<<endl
+		<<"[-1] Return to Main Menu"<<endl
+		<<"[1]  View "<<endl
+		<<"[2]  See"<<endl
+		<<"[3]  View "<<endl;
+		cin>>input_b;
+		
+		switch(input_b){
+			case 1:{
+				
+				break;
+			}
+			
+			case 2:{
+				cout<<"Ticket options"<<endl;
+				break;
+			}
+			case 3:{
+				
+				break;
+			}
+			
+			case -1:{
+				cout<<endl<<"------  Returning to Main Menu  ------"<<endl;
+				break;
+			}
+			
+			default:{
+				cout<<endl<<"--------  Invalid Option Entered  --------"<<endl;
+			}
+			
 		}
 	}
 	
 }
+void Database::displayTicketerMenu(){
+	int input_t=0; 
+	while(input_t!=-1){
+		cout<<endl<<"---------  Ticketer Menu  ---------"<<endl<<
+					"      Please Select an Option      "<<endl<<endl
+		<<"[-1] Return to Main Menu"<<endl
+		<<"[1]  Vi"<<endl
+		<<"[2]  See"<<endl;
+		cin>>input_t;
+		
+		switch(input_t){
+			case 1:{
+				
+				break;
+			}
+			
+			case 2:{
+				
+				break;
+			}
 
-EventDatabase::~EventDatabase(){
-	cout<<endl<<"Event Database Destroyed"<<endl;
+			
+			case -1:{
+				cout<<endl<<"------  Returning to Main Menu  ------"<<endl;
+				break;
+			}
+			
+			default:{
+				cout<<endl<<"--------  Invalid Option Entered  --------"<<endl;
+			}
+			
+		}
+	}
+	
 }
-
-EventDatabase::displayEvents(){
-	int i;
-	cout<<endl<<endl<<"----  Available Events  ----";
-	 for(i=0;event_group.size()>i;i++){
-		 event_group[i].displayInfo();
-	 }
-	 cout<<endl<<endl;
-}	
+	
 
 #endif

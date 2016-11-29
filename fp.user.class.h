@@ -19,7 +19,7 @@ class user_c{
 	user_c();
 	user_c(string f, string l, string id);
 	void virtual displayInfo();
-	void virtual displayMenu();
+	void virtual displayUserMenu();
 };
 
 user_c::user_c(){
@@ -47,7 +47,7 @@ void user_c::displayInfo(){
 	cout<<endl<<fname<< " "<<lname<< " " <<ID;
 }
 
-void user_c::displayMenu(){
+void user_c::displayUserMenu(){
 	int input=0;
 	cout<<endl<<"Welcome your account "<<fname<<" "<<lname<<endl;
 	
