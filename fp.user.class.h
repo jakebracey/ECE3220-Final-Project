@@ -72,7 +72,7 @@ void user_c::displayUserMenu(){
 			}
 			
 			case 3:{
-				cout<<endl<<"--------  Logging Out  --------"<<endl;
+				cout<<endl<<"....Logging Out"<<endl;
 				break;
 			}
 			

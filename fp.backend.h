@@ -139,13 +139,14 @@ Database::Database(){
 		char user_type;
 		
 		if ((iss >> fname >> lname >> ID >> user_type >> password)) {
+			int access=0;//sets to 0 to ensure that if any errors occur, user will NOT be given admin rights
 			switch(user_type){
 				
 				case 'a':{
 					//this is the case that creates the admin user typede
 					//after the admin user is created, the profile is added to the correct vector
 					
-					int access=1;//access level 1 gives the user full admin access
+					access=1;//access level 1 gives the user full admin access
 					//users with this level of access can also perform Box Office and Ticketer Applications
 					
 					admin_user_c user_temp(fname,lname,ID,password,access);
@@ -158,7 +159,7 @@ Database::Database(){
 					
 					int access=2;//access level 2 gives the user Box Office Access
 					
-					admin_user_c user_temp(fname,lname,ID,password);
+					admin_user_c user_temp(fname,lname,ID,password,access);
 					admin_group.push_back(user_temp);
 				break;}
 				
@@ -168,7 +169,7 @@ Database::Database(){
 					
 					int access=3;//access level 3 gives the user Ticketer Access
 					
-					admin_user_c user_temp(fname,lname,ID);
+					admin_user_c user_temp(fname,lname,ID,password);
 					admin_group.push_back(user_temp);
 				break;}
 				
@@ -228,16 +229,214 @@ void Database::displayAdminMenu(){
 		cin>>input_a;
 		
 		switch(input_a){
-			case 1:{
+			case 1:{//User management option
 				
-				break;
-			}
+				string terminal_input,new_info;
+				int new_access_level=0;
+				int result,confirmation=0;
+				int input=0;
+				while (terminal_input!="-1"){
+					cout<<endl<<endl<<"Please swipe ID Card, enter ID number, or enter -1 to exit: "<<endl;
+					cin>>terminal_input;
+					
+					if (terminal_input=="-1"){
+						cout<<endl<<"....Exiting"<<endl;
+						break;	
+					}
+					
+					else if(searchAdmins(terminal_input)!=-1){
+						user_2_admin:
+						result=searchAdmins(terminal_input);
+						while(input!=-1){
+							cout<<endl<<"Please select the item you would like to modify, [-1] to exit"<<endl
+								<<"[1] First  name:  "<<admin_group[result].fname<<endl
+								<<"[2] Last  name :  "<<admin_group[result].lname<<endl
+								<<"[3] ID  number :  "<<admin_group[result].ID<<endl
+								<<"[4] Access Level: "<<admin_group[result].access_level<<endl
+								<<"[5] Password  :   "<<admin_group[result].password<<endl;
+							cin>>input;
+						
+							switch(input){
+								case -1:{
+									cout<<endl<<"....Exiting"<<endl;
+									break;
+								}
+								
+								case 1:{
+									cout<<"Please enter a new First Name: ";
+									cin>>new_info;
+									cout<<"New First Name: "<<new_info<<endl
+										<<"Please select an option, [0] Confirm, [-1] Cancel"<<endl;
+									cin>>confirmation;
+									if(confirmation==0)
+										admin_group[result].fname=new_info;
+									break;
+								}
+								
+								case 2:{
+									cout<<"Please enter a new Last Name: ";
+									cin>>new_info;
+									cout<<"New Last Name: "<<new_info<<endl
+										<<"Please select an option, [0] Confirm, [-1] Cancel"<<endl;
+									cin>>confirmation;
+									if(confirmation==0)
+										admin_group[result].lname=new_info;
+									break;
+								}
+								
+								case 3:{
+									cout<<"Please enter a new ID number: ";
+									cin>>new_info;
+									cout<<"New ID number: "<<new_info<<endl
+										<<"Please select an option, [0] Confirm, [-1] Cancel"<<endl;
+									cin>>confirmation;
+									if(confirmation==0)
+										admin_group[result].ID=new_info;
+									break;
+								}
+								case 4:{
+									cout<<"Please enter a new Access Level: "<<endl;
+									cout<<"[0]  Regular User"<<endl
+										<<"[1]  Admin User"<<endl
+										<<"[2]  Box Office User"<<endl
+										<<"[3]  Ticketer User"<<endl;
+									cin>>new_access_level;
+									if(new_access_level<0||new_access_level>3){
+										cout<<"Invalid access Level entered"<<endl;
+										break;
+									}
+										
+									cout<<"New Access Level: "<<new_access_level<<endl
+										<<"Please select an option, [0] Confirm, [-1] Cancel"<<endl;
+									cin>>confirmation;
+									if(confirmation==0)
+										admin_group[result].access_level=new_access_level;
+									break;
+								}
+								case 5:{
+									cout<<"Please enter a new Password: ";
+									cin>>new_info;
+									cout<<"New Password: "<<new_info<<endl
+										<<"Please select an option, [0] Confirm, [-1] Cancel"<<endl;
+									cin>>confirmation;
+									if(confirmation==0)
+										admin_group[result].password=new_info;
+									break;
+								}
+								
+								default:{
+									cout<<endl<<"--------  Invalid Option Entered  --------"<<endl;
+								}
+								
+							}//end of SWITCH
+						}//end of WHILE for changing user info
+					}//end of ELSE IF for Admin result
+					
+					
+					else if(searchUsers(terminal_input)!=-1){
+						result=searchUsers(terminal_input);
+						while(input!=-1){
+							cout<<endl<<"Please select the item you would like to modify, [-1] to exit"<<endl
+								<<"[1] First  name:  "<<user_group[result].fname<<endl
+								<<"[2] Last  name :  "<<user_group[result].lname<<endl
+								<<"[3] ID  number :  "<<user_group[result].ID<<endl
+								<<"[4] Access Level: 0"<<endl;
+							cin>>input;
+						
+							switch(input){
+								case -1:{
+									cout<<endl<<"....Exiting"<<endl;
+								break;
+								}
+								
+								case 1:{
+									cout<<"Please enter a new First Name: ";
+									cin>>new_info;
+									cout<<"New First Name: "<<new_info<<endl
+										<<"Please select an option, [0] Confirm, [-1] Cancel"<<endl;
+									cin>>confirmation;
+									if(confirmation==0)
+										user_group[result].fname=new_info;
+								break;
+								}
+								
+								case 2:{
+									cout<<"Please enter a new Last Name: ";
+									cin>>new_info;
+									cout<<"New Last Name: "<<new_info<<endl
+										<<"Please select an option, [0] Confirm, [-1] Cancel"<<endl;
+									cin>>confirmation;
+									if(confirmation==0)
+										user_group[result].lname=new_info;
+								break;
+								}
+								
+								case 3:{
+									cout<<"Please enter a new ID number: ";
+									cin>>new_info;
+									cout<<"New ID number: "<<new_info<<endl
+										<<"Please select an option, [0] Confirm, [-1] Cancel"<<endl;
+									cin>>confirmation;
+									if(confirmation==0)
+										user_group[result].ID=new_info;
+								break;
+								}
+								case 4:{
+									cout<<"Please enter a new Access Level: "<<endl;
+									cout<<"[0]  Regular User"<<endl
+										<<"[1]  Admin User"<<endl
+										<<"[2]  Box Office User"<<endl
+										<<"[3]  Ticketer User"<<endl;
+									cin>>new_access_level;
+									if(new_access_level<0||new_access_level>3){
+										cout<<"Invalid access Level entered"<<endl;
+										break;
+									}
+									cout<<"New Access Level: "<<new_access_level<<endl
+										<<"Please select an option, [0] Confirm, [-1] Cancel"<<endl;
+									cin>>confirmation;
+									if(confirmation==0){
+										cout<<"Please set a Password: ";
+									cin>>new_info;
+									cout<<"New Password: "<<new_info<<endl
+										<<"Please select an option, [0] Confirm, [-1] Cancel"<<endl;
+									cin>>confirmation;
+									if(confirmation==0){
+										
+										admin_user_c user_temp(user_group[result].fname,user_group[result].lname,user_group[result].ID,new_info,new_access_level);
+										user_group.erase (user_group.begin()+result);
+										admin_group.push_back(user_temp);
+										goto user_2_admin;
+									}
+									}
+								break;
+								}
+								
+								default:{
+									cout<<endl<<"--------  Invalid Option Entered  --------"<<endl;
+								}
+								
+							}//end of SWITCH
+						}//end of WHILE for changing user info
+					}//end of ELSE IF for User result
+				
+					
+					else{
+						cout<<endl<<"Unable to find user";
+					}
+				}
+				
+			break;
+			}//END of User management option
 			
-			case 2:{
+			case 2:{//Display Current Users option
+				
 				displayUsers();
 				break;
-			}
-			case 3:{
+			}//END of Display Current Users option
+			
+			case 3:{//Create New User option
+			
 				string temp_fn, temp_ln, temp_ID,temp_password;
 				int temp_access_level;
 				cout<<"Please enter a first name: ";
@@ -246,7 +445,7 @@ void Database::displayAdminMenu(){
 				cin>>temp_ln;
 				cout<<"Please enter an ID number: ";
 				cin>>temp_ID;
-				cout<<"[0]: Regular User"<<endl
+				cout<<"[0]  Regular User"<<endl
 					<<"[1]  Admin User"<<endl
 					<<"[2]  Box Office User"<<endl
 					<<"[3]  Ticketer User"<<endl;
@@ -285,7 +484,7 @@ void Database::displayAdminMenu(){
 				}
 				
 				break;
-			}
+			}//END of Create New User option
 			
 			case 4:{
 				
@@ -302,7 +501,7 @@ void Database::displayAdminMenu(){
 			}
 			
 			case -1:{
-				cout<<endl<<"------  Returning to Main Menu  ------"<<endl;
+				cout<<endl<<"....Returning to Main Menu"<<endl;
 				break;
 			}
 			
@@ -311,9 +510,9 @@ void Database::displayAdminMenu(){
 			}
 			
 		}
-	}	
+	}
+}	
 	
-}
 void Database::displayBoxMenu(){
 int input_b=0; 
 	while(input_b!=-1){
@@ -341,7 +540,7 @@ int input_b=0;
 			}
 			
 			case -1:{
-				cout<<endl<<"------  Returning to Main Menu  ------"<<endl;
+				cout<<endl<<"....Returning to Main Menu"<<endl;
 				break;
 			}
 			
@@ -376,7 +575,7 @@ void Database::displayTicketerMenu(){
 
 			
 			case -1:{
-				cout<<endl<<"------  Returning to Main Menu  ------"<<endl;
+				cout<<endl<<"....Returning to Main Menu"<<endl;
 				break;
 			}
 			

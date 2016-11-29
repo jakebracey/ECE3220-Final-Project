@@ -15,7 +15,6 @@ class admin_user_c : public user_c{
 	admin_user_c();
 	admin_user_c(string f, string l, string id, string pass,int access);
 	admin_user_c(string f, string l, string id, string pass);
-	admin_user_c(string f, string l, string id);
 	void displayInfo();
 	unsigned int displayMenu(bool access_check);
 	void displayUserMenu();
@@ -39,8 +38,12 @@ unsigned int admin_user_c::displayMenu(bool access_check){
 					return 0;
 	}	
 	}
-	cout<<endl<<"Welcome your account "<<fname<<" "<<lname<<endl;
+	cout<<endl<<lname<<", "<<fname<<endl;
 	
+	if(access_level==0){
+		displayUserMenu();
+		return 0;
+	}
 	
 	if(access_level==1){//start of Admin User Level
 		while(input!=-1){
@@ -55,7 +58,7 @@ unsigned int admin_user_c::displayMenu(bool access_check){
 			
 			switch(input){
 				case -1:{
-					cout<<endl<<"--------  Logging Out  --------"<<endl;
+					cout<<endl<<"....Logging Out"<<endl;
 					return 0;
 					break;
 				}
@@ -100,7 +103,7 @@ unsigned int admin_user_c::displayMenu(bool access_check){
 			
 			switch(input){
 				case -1:{
-					cout<<endl<<"--------  Logging Out  --------"<<endl;
+					cout<<endl<<"....Logging Out"<<endl;
 					return 0;
 					break;
 				}
@@ -139,7 +142,7 @@ unsigned int admin_user_c::displayMenu(bool access_check){
 			
 			switch(input){
 				case -1:{
-					cout<<endl<<"--------  Logging Out  --------"<<endl;
+					cout<<endl<<"....Logging Out"<<endl;
 					return 0;
 					break;
 				}
@@ -171,9 +174,8 @@ admin_user_c::admin_user_c(){
 }
 
 admin_user_c::admin_user_c(string f, string l, string id, string pass,int access){
-	//this constructor is used to create the admin with full rights user class
+	//this constructor is used to create either Admin or Box Office Users
 	
-	//cout<<endl<<"Admin user created";
 	fname=f;
 	lname=l;
 	ID=id;
@@ -183,26 +185,17 @@ admin_user_c::admin_user_c(string f, string l, string id, string pass,int access
 }
 
 admin_user_c::admin_user_c(string f, string l, string id, string pass){
-	//this constructor is used to create the Box Office User class
+	//this constructor is used to create the Ticketer User class
 	
-	//cout<<endl<<"Box Office user created";
 	fname=f;
 	lname=l;
 	ID=id;
 	balance=0;
 	password=pass;
-	access_level=2;
-}
-
-admin_user_c::admin_user_c(string f, string l, string id){
-	//this constructor is used to create the Ticketer user type
-	//cout<<endl<<"Ticketer user created";
-	fname=f;
-	lname=l;
-	ID=id;
-	balance=0;
 	access_level=3;
 }
+
+
 
 admin_user_c::~admin_user_c(){
 	//cout<<endl<<"Admin/Box/Ticketer user destroyed";
@@ -258,7 +251,7 @@ void admin_user_c::displayUserMenu(){
 	while(input_u!=-1){
 		cout<<endl<<"-----------  User Menu  -----------"<<endl<<
 					"      Please Select an Option      "<<endl<<endl
-		<<"[-1] Return to Main Menu"<<endl
+		<<"[-1] Return to Main Menu / Logout"<<endl
 		<<"[1]  View Your Account Info"<<endl
 		<<"[2]  See ticket options"<<endl;
 		cin>>input_u;
@@ -275,7 +268,7 @@ void admin_user_c::displayUserMenu(){
 			}
 			
 			case -1:{
-				cout<<endl<<"------  Returning to Main Menu  ------"<<endl;
+				cout<<endl<<"....Returning to Main Menu / Logging out"<<endl;
 				break;
 			}
 			
