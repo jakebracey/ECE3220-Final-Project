@@ -18,12 +18,14 @@ class Database{
 	private:
 	vector<user_c> user_group;
 	vector<admin_user_c> admin_group;
+	vector<event_c> event_group;
 
 	
 	public:
 	~Database();
 	Database();
 	void displayUsers();
+	void displayEvents();
 	int searchUsers(string search_key);
 	int searchAdmins(string search_key);
 	void Login();
@@ -123,7 +125,7 @@ int Database::searchAdmins(string search_key){
 
 
 
-Database::Database(){
+Database::Database(){//NEEDS ERROR CHECKING
 /*	This is the constructor that initializes the program
 	
 	
@@ -192,7 +194,25 @@ Database::Database(){
 		}
 	}
 	
+	ifstream events_file("events.txt");
+	string line_e;
+	istringstream iss_events(line_e);
+		
+		while(getline(events_file, line_e))
+		{
+			istringstream iss_events(line_e);
+			string ename;
+			double price;
+			unsigned int capacity;
+			if((iss_events>>ename>>price>>capacity)){
+				event_c event_temp(ename, price,capacity);
+				event_group.push_back(event_temp);
+			}
+		}
+
+	
 }
+
 
 void Database::displayUsers(){
 	int i;
@@ -204,6 +224,14 @@ void Database::displayUsers(){
 	 cout<<endl<<endl<<"----  Admin Group Members  ----";
 	 for(i=0;admin_group.size()>i;i++){
 		 admin_group[i].displayInfo();
+	 }
+	 cout<<endl<<endl;
+}
+void Database::displayEvents(){
+	int i;
+	cout<<endl<<endl<<"----  Available Events  ----";
+	 for(i=0;event_group.size()>i;i++){
+		 event_group[i].displayInfo();
 	 }
 	 cout<<endl<<endl;
 }
@@ -490,12 +518,17 @@ void Database::displayAdminMenu(){
 				
 				break;
 			}
-			case 5:{
-				
+			case 5:{//Display Current Events option
+				displayEvents();
 				break;
-			}
+			}//END of Display Current Events
 			
-			case 6:{
+			case 6:{//Add New Event option
+				string temp_event_name;
+				double temp_price;
+				cout<<"Please enter a event name: ";
+				cin>>temp_event_name;
+				
 				
 				break;
 			}

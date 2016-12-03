@@ -19,6 +19,7 @@
 	 //EventDatabase e1;
 	 //e1.displayEvents();
 	 d1.displayUsers();
+	 d1.displayEvents();
 	
 	 d1.Login();
 	 

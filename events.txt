@@ -1,4 +1,4 @@
-Football 75
-Basketball 30
-Concert 25
-Volleyball 25
+Football 75 40000
+Basketball 30 15000
+Concert 25 75000
+Volleyball 25 5000
