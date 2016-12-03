@@ -218,7 +218,7 @@ string admin_user_c::getpass(const char *prompt, bool show_asterisk){
 
 	cout <<prompt<<endl;
 
-	while((ch=getch())!=RETURN)
+	while((ch=getchar())!=RETURN)
 	{
 	   if(ch==BACKSPACE)
 		 {
@@ -231,7 +231,7 @@ string admin_user_c::getpass(const char *prompt, bool show_asterisk){
 		 }
 	   else if(ch==0 || ch==224) // handle escape sequences
 		 {
-			 getch(); // ignore non printable chars
+			 getchar(); // ignore non printable chars
 			 continue;
 		 }
 	   else
