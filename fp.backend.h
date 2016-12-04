@@ -42,13 +42,13 @@ void Database::Login(){
 	string terminal_input;
 	int result;
 	while (terminal_input!="-1"){
-		cout<<endl<<endl<<"Please swipe your ID Card or enter -1 to quit:"<<endl;
+		cout<<endl<<"Please swipe your ID Card or enter -1 to quit:"<<endl;
 		
 		cin>>terminal_input;
-		system("CLS");
 		
 		
 		if (terminal_input=="-1"){
+			clear_screen();
 			cout<<endl<<"--------  Terminating Program  --------"<<endl;
 			break;	
 		}
@@ -136,7 +136,8 @@ void Database::Login(){
 					}
 					
 					case 3:{
-						
+						clear_screen();
+						cout<<endl<<"....Logging Out"<<endl;
 						break;
 					}
 				}

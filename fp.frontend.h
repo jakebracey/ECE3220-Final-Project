@@ -23,6 +23,16 @@ using namespace std;
 #include <fstream>
 #include <sstream>
 //#include <conio.h>
+#include <cstdlib>
 
+void clear_screen()
+{
+#ifdef _WIN32
+    std::system("cls");
+#else
+    // Assume POSIX
+    std::system ("clear");
+#endif
+}
 
 #endif //end of fp.h

@@ -33,7 +33,7 @@ unsigned int admin_user_c::displayMenu(bool access_check){
 	//input_pass=getpass("Please enter your password: ",true);
 	cout<<"Please enter your password: ";
 	cin>>input_pass;
-	system("CLS");
+	clear_screen();
 	
 	if(input_pass!=password){
 		cout<<endl<<"---------  Access Denied  ---------"<<endl<<
@@ -61,6 +61,7 @@ unsigned int admin_user_c::displayMenu(bool access_check){
 			
 			switch(input){
 				case -1:{
+					clear_screen();
 					cout<<endl<<"....Logging Out"<<endl;
 					return 0;
 					break;
@@ -106,6 +107,7 @@ unsigned int admin_user_c::displayMenu(bool access_check){
 			
 			switch(input){
 				case -1:{
+					clear_screen();
 					cout<<endl<<"....Logging Out"<<endl;
 					return 0;
 					break;
@@ -145,6 +147,7 @@ unsigned int admin_user_c::displayMenu(bool access_check){
 			
 			switch(input){
 				case -1:{
+					clear_screen();
 					cout<<endl<<"....Logging Out"<<endl;
 					return 0;
 					break;
