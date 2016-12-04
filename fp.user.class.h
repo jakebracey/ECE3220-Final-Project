@@ -19,7 +19,7 @@ class user_c{
 	user_c();
 	user_c(string f, string l, string id);
 	void virtual displayInfo();
-	void virtual displayUserMenu();
+	unsigned int virtual displayUserMenu();
 };
 
 user_c::user_c(){
@@ -44,12 +44,15 @@ user_c::~user_c(){
 }
 
 void user_c::displayInfo(){
-	cout<<endl<<fname<< " "<<lname<< " " <<ID;
+	cout<<endl<<fname<< " "<<lname<< " " <<ID<<" ";
+	for(auto i:tickets)
+		cout <<" -"<< i <<"- ";
 }
 
-void user_c::displayUserMenu(){
+unsigned int user_c::displayUserMenu(){
 	int input=0;
-	cout<<endl<<"Welcome your account "<<fname<<" "<<lname<<endl;
+	cout<<endl<<lname<<", "<<fname<<endl;
+
 	
 	
 	while(input!=3){
@@ -63,16 +66,18 @@ void user_c::displayUserMenu(){
 		switch(input){
 			case 1:{
 				displayInfo();
+				return 1;
 				break;
 			}
 			
 			case 2:{
-				cout<<"Ticket options"<<endl;
+				return 2;
 				break;
 			}
 			
 			case 3:{
 				cout<<endl<<"....Logging Out"<<endl;
+				return 3;
 				break;
 			}
 			

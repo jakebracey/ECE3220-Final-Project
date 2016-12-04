@@ -6,9 +6,9 @@
  ============================================================================
  */
  #include "fp.frontend.h"
+ #include "fp.event.class.h"
  #include "fp.user.class.h"
  #include "fp.admin.user.class.h"
- #include "fp.event.class.h"
  #include "fp.backend.h"
  
 

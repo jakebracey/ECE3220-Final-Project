@@ -43,7 +43,10 @@ void Database::Login(){
 	int result;
 	while (terminal_input!="-1"){
 		cout<<endl<<endl<<"Please swipe your ID Card or enter -1 to quit:"<<endl;
+		
 		cin>>terminal_input;
+		system("CLS");
+		
 		
 		if (terminal_input=="-1"){
 			cout<<endl<<"--------  Terminating Program  --------"<<endl;
@@ -95,7 +98,49 @@ void Database::Login(){
 		
 		else if(searchUsers(terminal_input)!=-1){
 			result=searchUsers(terminal_input);
-			user_group[result].displayUserMenu();
+			unsigned int user_choice=0;
+			while(user_choice!=3){
+			
+				user_choice=user_group[result].displayUserMenu();
+				
+				
+				switch(user_choice){
+					case 1:{
+						break;
+					}
+					case 2:{
+						displayEvents();
+						int user_selection=0;
+						while(user_selection!=-1){
+							displayEvents();
+							cout<<"Please enter the ticket you would like to purchase or [-1] to escape:"<<endl;
+							cin>>user_selection;
+							if(user_selection<0||user_selection>event_group.size())
+								cout<<endl<<"Invalid option selected"<<endl;
+							else{
+								if(event_group[user_selection-1].capacity>0){//checks to make sure there are available tickets
+								(user_group[result].tickets).push_back(event_group[user_selection-1].ename);
+								user_group[result].balance+=event_group[user_selection-1].price;
+								event_group[user_selection-1].capacity--;
+								cout<<endl<<"A ticket for the event \""<<event_group[user_selection-1].ename<<"\" has been added to your account"<<endl
+								<<"Your new account balance is: $"<<user_group[result].balance<<endl;
+								}
+								else
+									cout<<"There are no tickets available for this event"<<endl;
+							}	
+							
+						}
+						
+						
+						break;
+					}
+					
+					case 3:{
+						
+						break;
+					}
+				}
+			}
 		}
 		
 		else{
@@ -238,8 +283,9 @@ void Database::displayUsers(){
 }
 void Database::displayEvents(){
 	int i;
-	cout<<endl<<endl<<"----  Available Events  ----";
+	cout<<endl<<endl<<"----  Current Events  ----";
 	 for(i=0;event_group.size()>i;i++){
+		 cout<<endl<<"#"<<i+1<<": ";
 		 event_group[i].displayInfo();
 	 }
 	 cout<<endl<<endl;

@@ -3,6 +3,7 @@
 using namespace std;
 
 class event_c{
+	friend class Database;
 
       protected:
       string ename;
@@ -45,7 +46,7 @@ event_c::~event_c(){
 };
 
 void event_c::displayInfo(){
-      cout<<endl<<ename<<" "<<price;
+      cout<<ename<<": $"<<price<<"  Available Tickets: "<<capacity;
 };
 
 #endif

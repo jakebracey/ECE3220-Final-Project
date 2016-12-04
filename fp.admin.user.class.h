@@ -17,7 +17,7 @@ class admin_user_c : public user_c{
 	admin_user_c(string f, string l, string id, string pass);
 	void displayInfo();
 	unsigned int displayMenu(bool access_check);
-	void displayUserMenu();
+	unsigned int displayUserMenu();
 	//void displayAdminMenu();
 	//void displayBoxMenu();
 	//void displayTicketerMenu();
@@ -246,7 +246,7 @@ string admin_user_c::getpass(const char *prompt, bool show_asterisk){
 }
 
 
-void admin_user_c::displayUserMenu(){
+unsigned int admin_user_c::displayUserMenu(){
 	int input_u=0; 
 	while(input_u!=-1){
 		cout<<endl<<"-----------  User Menu  -----------"<<endl<<
