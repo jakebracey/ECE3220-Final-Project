@@ -571,6 +571,25 @@ void Database::displayAdminMenu(){
 			}//END of Create New User option
 			
 			case 4:{
+				int terminal_input=0;
+				while(terminal_input!=-1){
+					displayEvents();
+					cout<<endl<<"Please select an event number to edit, [-1] to exit"<<endl;
+					cin>>terminal_input;
+					if(terminal_input<0||terminal_input>event_group.size()){
+						cout<<endl<<"Invalid option selected"<<endl;
+					}
+					else{
+						while(input!=-1){
+							cout<<endl<<"Please select the item you would like to modify, [-1] to exit"<<endl
+								<<"[1] Event  Name : "<<event_group[terminal_input-1].ename<<endl
+								<<"[2] Event  Price: $"<<event_group[user_selection-1].price<<endl
+								<<"[3] Open Tickets: "<<event_group[user_selection-1].price<<endl
+						
+					}
+					
+					
+				}
 				
 				break;
 			}
