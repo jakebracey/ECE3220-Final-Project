@@ -12,7 +12,6 @@ class user_c{
 	string lname;
 	double balance;
 	vector<string> tickets;
-	vector<string> tickets_used;
 	
 	public:
 	~user_c();

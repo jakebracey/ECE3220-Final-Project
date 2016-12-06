@@ -861,40 +861,73 @@ string terminal_input;
 	
 
 void Database::displayTicketerMenu(){
-	int input_t=0; 
-	while(input_t!=-1){
-		cout<<endl<<"---------  Ticketer Menu  ---------"<<endl<<
-					"      Please Select an Option      "<<endl<<endl
-		<<"[-1] Return to Main Menu"<<endl
-		<<"[1]  Vi"<<endl
-		<<"[2]  See"<<endl;
-		cin>>input_t;
-		
-		switch(input_t){
-			case 1:{
-				
-				break;
-			}
-			
-			case 2:{
-				
-				break;
-			}
+	int result;
+	int user_input=0;
 
+	while (user_input!=-1){
+		string terminal_input;
+		cout<<endl<<"---------  Ticketer Menu  ---------";
+		displayEvents();
+		cout<<endl<<"Please select an Event Number to begin or [-1] to exit:"<<endl;
+		cin>>user_input;
+		
+		
+		if (user_input==-1){
+			clear_screen();
+			cout<<endl<<"....Returning to Main Menu"<<endl;
+			break;	
+		}
+		
+		if(user_input<=0||user_input>event_group.size())
+			cout<<endl<<"Invalid option selected"<<endl;
+		else{
+			clear_screen();
+			while (terminal_input!="-1"){
+				
+				cout<<event_group[user_input-1].ename<<" Event Ticketing"<<endl
+				<<"Please slide ID card or [-1] to Exit:"<<endl;
+				cin>>terminal_input;
+				
+				
+				if (terminal_input=="-1"){
+					clear_screen();
+					cout<<endl<<"....Returning to Ticketer Menu"<<endl;
+					break;	
+				}
+				
+				else if(searchAdmins(terminal_input)!=-1){
+					result=searchAdmins(terminal_input);
+					int success=0;
+					int cnt=0;
+					for(auto i:admin_group[result].tickets){
+						cnt++;
+						if(i==event_group[user_input-1].ename){
+							(admin_group[result].tickets).erase ((admin_group[result].tickets).begin()+cnt-1);
+							clear_screen();
+							success=1;
+							cout<<"+++CONFIRMED+++ "<<admin_group[result].fname<< " "<<admin_group[result].lname<<endl;
+						}
+					}
+					if(success==0){
+						clear_screen();
+						cout<<"--DENIED-- "<<admin_group[result].fname<<" "<<admin_group[result].lname<<" --DENIED--"<<endl<<endl;
+					}
+				}
+					
 			
-			case -1:{
-				cout<<endl<<"....Returning to Main Menu"<<endl;
-				break;
+
+				else if(searchUsers(terminal_input)!=-1){
+					cout<<"Euser";
+				}
+				else
+					cout<<"User Could not be found"<<endl;
+		
+			pause(1);
 			}
-			
-			default:{
-				cout<<endl<<"--------  Invalid Option Entered  --------"<<endl;
-			}
-			
 		}
 	}
-	
 }
+
 	
 
 #endif

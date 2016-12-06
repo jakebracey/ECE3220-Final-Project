@@ -24,6 +24,8 @@ using namespace std;
 #include <sstream>
 //#include <conio.h>
 #include <cstdlib>
+#include <ctime>
+
 
 void clear_screen()
 {
@@ -33,6 +35,13 @@ void clear_screen()
     // Assume POSIX
     std::system ("clear");
 #endif
+}
+
+void pause(int dur)
+{
+int temp = time(NULL) + dur;
+
+while(temp > time(NULL));
 }
 
 #endif //end of fp.h
