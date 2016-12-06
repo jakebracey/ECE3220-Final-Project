@@ -669,7 +669,7 @@ void Database::displayAdminMenu(){
 									cout<<endl<<"---------- WARNING ----------"<<endl
 											  <<"Changing event name will VOID any previously purchased ticket"<<endl
 											  <<"Ensure that no user has purchased a ticket before modifying"<<endl
-											  <<"[0] to proceed, [-1] to cancel";
+											  <<"[0] to proceed, [-1] to cancel"<<endl;
 									cin>>confirmation_inital;
 									if(confirmation_inital==0){
 									cout<<"Please enter a new Event Name: ";
@@ -729,7 +729,7 @@ void Database::displayAdminMenu(){
 			case 6:{//Add New Event option
 				string temp_event_name;
 				double temp_price;
-				unsigned int temp_capacity=-1;
+				int temp_capacity=-1;
 				int cap_or_no=-1;
 				
 				cout<<"Please enter a event name: ";
@@ -755,27 +755,28 @@ void Database::displayAdminMenu(){
 					
 				}
 				else if(cap_or_no==1){
-				while (temp_capacity<0){
-				cout<<endl<<"Please enter an event capacity: ";
-				cin>>temp_capacity;
-				if(temp_capacity<0){
-					cout<<"Capactity cannot be negative"<<endl;
-				}
-				}
-				
-				cout<<endl<<"Please confirm the following information is correct"<<endl
-					<<"Event  Name : "<<temp_event_name<<endl
-					<<"Event  Price: $"<<temp_price<<endl
-					<<"Event Capacity: "<<temp_capacity<<endl
-					<<"Please select an option, [0] Create event, [-1] Escape: "<<endl;
+					cout<<"Please enter an event capacity: ";
+					cin>>temp_capacity;
+					if(temp_capacity<0){
+						while (temp_capacity<0){
+							cout<<endl<<"Capactity cannot be negative"<<endl<<"Please enter an event capacity: ";
+							cin>>temp_capacity;
+							}
+					}
+					
+					cout<<endl<<"Please confirm the following information is correct"<<endl
+						<<"Event  Name : "<<temp_event_name<<endl
+						<<"Event  Price: $"<<temp_price<<endl
+						<<"Event Capacity: "<<temp_capacity<<endl
+						<<"Please select an option, [0] Create event, [-1] Escape: "<<endl;
 					int confirmation=1;
 					cin>>confirmation;
 					if(confirmation==0){
 						event_c event_temp(temp_event_name,temp_price,temp_capacity);
 						event_group.push_back(event_temp);
 					}
-				
-				}
+					
+					}
 				break;
 			}
 			
@@ -798,10 +799,12 @@ void Database::displayBoxMenu(){
 string terminal_input;
 	int result;
 	while (terminal_input!="-1"){
+		clear_screen();
 		cout<<endl<<"---------  Box Office Menu  ---------";
 		cout<<endl<<"Swipe ID Card or [-1] to exit:"<<endl;
 		cin>>terminal_input;
 		int user_selection=0;
+		clear_screen();
 		
 		
 		if (terminal_input=="-1"){
@@ -815,7 +818,7 @@ string terminal_input;
 			while(user_selection!=-1){
 				cout<<endl<<admin_group[result].fname<<" "<<admin_group[result].lname;
 				displayEvents();
-				cout<<"Select a ticket, [0] for refunds, [-1] to return:"<<endl;
+				cout<<"Select a ticket number, [0] for refunds, [-1] to return:"<<endl;
 				cin>>user_selection;
 				if(user_selection==-1){
 				break;	
@@ -829,6 +832,7 @@ string terminal_input;
 						cout <<endl<<cnt<<": "<< i;
 						}
 					if(cnt==0){
+						clear_screen();
 						cout<<endl<<"User has no tickets to return"<<endl<<endl;
 					}
 					else{
@@ -838,11 +842,14 @@ string terminal_input;
 							(admin_group[result].tickets).erase ((admin_group[result].tickets).begin()+return_selection-1);
 							admin_group[result].balance-=event_group[return_selection-1].price;
 							event_group[return_selection-1].capacity++;
+							clear_screen();
 							cout<<endl<<admin_group[result].fname<<" "<<admin_group[result].lname<<" has been credited $ "<<event_group[return_selection-1].price<<endl;
 						
 						}
-						else
-							cout<<endl<<"Invalid Option Selected";
+						else{
+							clear_screen();
+							cout<<endl<<"Ticket Return Aborted";
+						}
 					}
 				
 				}
@@ -854,6 +861,7 @@ string terminal_input;
 					(admin_group[result].tickets).push_back(event_group[user_selection-1].ename);
 					admin_group[result].balance+=event_group[user_selection-1].price;
 					event_group[user_selection-1].capacity--;
+					clear_screen();
 					cout<<endl<<"A ticket for the event \""<<event_group[user_selection-1].ename<<"\" has been added to the account"<<endl
 					<<"Their new account balance is: $"<<admin_group[result].balance<<endl;
 					}
@@ -867,7 +875,7 @@ string terminal_input;
 			while(user_selection!=-1){
 				cout<<endl<<user_group[result].fname<<" "<<user_group[result].lname;
 				displayEvents();
-				cout<<"Select a ticket, [0] for refunds, [-1] to return:"<<endl;
+				cout<<"Select a ticket number, [0] for refunds, [-1] to return:"<<endl;
 				cin>>user_selection;
 				if(user_selection==-1){
 				break;	
@@ -881,7 +889,9 @@ string terminal_input;
 						cout <<endl<<cnt<<": "<< i;
 						}
 					if(cnt==0){
+						clear_screen();
 						cout<<endl<<"User has no tickets to return"<<endl<<endl;
+						
 					}
 					else{
 					cout<<endl<<"Ticket # to refund, [-1] to escape: ";
@@ -890,11 +900,14 @@ string terminal_input;
 							(user_group[result].tickets).erase ((user_group[result].tickets).begin()+return_selection-1);
 							user_group[result].balance-=event_group[return_selection-1].price;
 							event_group[return_selection-1].capacity++;
+							clear_screen();
 							cout<<endl<<user_group[result].fname<<" "<<user_group[result].lname<<" has been credited $ "<<event_group[return_selection-1].price<<endl;
 						
 						}
-						else
-							cout<<endl<<"Invalid Option Selected";
+						else{
+							clear_screen();
+							cout<<endl<<"Ticket Return Aborted";
+						}
 					}
 				
 				}
@@ -906,6 +919,7 @@ string terminal_input;
 					(user_group[result].tickets).push_back(event_group[user_selection-1].ename);
 					user_group[result].balance+=event_group[user_selection-1].price;
 					event_group[user_selection-1].capacity--;
+					clear_screen();
 					cout<<endl<<"A ticket for the event \""<<event_group[user_selection-1].ename<<"\" has been added to the account"<<endl
 					<<"Their new account balance is: $"<<user_group[result].balance<<endl;
 					}
@@ -1006,10 +1020,10 @@ void Database::displayTicketerMenu(){
 						cout<<"--DENIED-- "<<user_group[result].fname<<" "<<user_group[result].lname<<" --DENIED--"<<endl<<endl;
 					}
 				}
-				else
+				else{
 				clear_screen();	
 				cout<<"User Could not be found"<<endl;
-		
+				}
 			pause(1);
 			}
 		}

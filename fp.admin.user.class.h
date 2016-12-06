@@ -26,6 +26,7 @@ unsigned int admin_user_c::displayMenu(bool access_check){
 	
 	if(access_check){
 	//input_pass=getpass("Please enter your password: ",true);
+	clear_screen();
 	cout<<"Please enter your password: ";
 	cin>>input_pass;
 	clear_screen();
