@@ -17,11 +17,6 @@ class admin_user_c : public user_c{
 	admin_user_c(string f, string l, string id, string pass);
 	void displayInfo();
 	unsigned int displayMenu(bool access_check);
-	unsigned int displayUserMenu();
-	//void displayAdminMenu();
-	//void displayBoxMenu();
-	//void displayTicketerMenu();
-	string getpass(const char *prompt, bool show_asterisk);
 };
 
 unsigned int admin_user_c::displayMenu(bool access_check){
@@ -68,7 +63,6 @@ unsigned int admin_user_c::displayMenu(bool access_check){
 				}
 				
 				case 1:{
-					displayUserMenu();
 					return 1;
 					break;
 				}
@@ -114,7 +108,7 @@ unsigned int admin_user_c::displayMenu(bool access_check){
 				}
 				
 				case 1:{
-					displayUserMenu();
+					return 1;
 					break;
 				}
 				
@@ -154,7 +148,7 @@ unsigned int admin_user_c::displayMenu(bool access_check){
 				}
 				
 				case 1:{
-					displayUserMenu();
+					return 1;
 					break;
 				}
 				
@@ -208,85 +202,10 @@ admin_user_c::~admin_user_c(){
 }
 void admin_user_c::displayInfo(){
 	cout<<endl<<fname<< " "<<lname<< " " <<ID<< " "<<password;
+	for(auto i:tickets)
+		cout <<" -"<< i <<"- ";
 }
 
-string admin_user_c::getpass(const char *prompt, bool show_asterisk){
-//Copyright notice
-//This program came from a lirary online
-//cplusplus.com is the source with an unknown author
-//To view the website go to http://www.cplusplus.com/articles/E6vU7k9E/
-/*
-	const char BACKSPACE=8;
-	const char RETURN=13;
-
-	string password;
-	unsigned char ch=0;
-
-	cout <<prompt<<endl;
-
-	while((ch=getch())!=RETURN)
-	{
-	   if(ch==BACKSPACE)
-		 {
-			if(password.length()!=0)
-			  {
-				 if(show_asterisk)
-				 cout <<"\b \b";
-				 password.resize(password.length()-1);
-			  }
-		 }
-	   else if(ch==0 || ch==224) // handle escape sequences
-		 {
-			 getch(); // ignore non printable chars
-			 continue;
-		 }
-	   else
-		 {
-			 password+=ch;
-			 if(show_asterisk)
-				 cout <<'*';
-		 }
-	}
-	cout <<endl;
-	return password;
-	*/
-}
-
-
-unsigned int admin_user_c::displayUserMenu(){
-	int input_u=0; 
-	while(input_u!=-1){
-		cout<<endl<<"-----------  User Menu  -----------"<<endl<<
-					"      Please Select an Option      "<<endl<<endl
-		<<"[-1] Return to Main Menu / Logout"<<endl
-		<<"[1]  View Your Account Info"<<endl
-		<<"[2]  See ticket options"<<endl;
-		cin>>input_u;
-		
-		switch(input_u){
-			case 1:{
-				displayInfo();
-				break;
-			}
-			
-			case 2:{
-				cout<<"Ticket options"<<endl;
-				break;
-			}
-			
-			case -1:{
-				cout<<endl<<"....Returning to Main Menu / Logging out"<<endl;
-				break;
-			}
-			
-			default:{
-				cout<<endl<<"--------  Invalid Option Entered  --------"<<endl;
-			}
-			
-		}
-	}
-	
-}
 
 
 #endif

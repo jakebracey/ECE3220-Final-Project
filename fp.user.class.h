@@ -18,7 +18,7 @@ class user_c{
 	user_c();
 	user_c(string f, string l, string id);
 	void virtual displayInfo();
-	unsigned int virtual displayUserMenu();
+	unsigned int displayUserMenu();
 };
 
 user_c::user_c(){
@@ -51,36 +51,37 @@ void user_c::displayInfo(){
 unsigned int user_c::displayUserMenu(){
 	int input=0;
 	cout<<endl<<lname<<", "<<fname<<endl;
-
-	
 	
 	while(input!=3){
-		cout<<endl<<"-----------  Main Menu  -----------"<<endl<<
+	
+		cout<<endl<<"-----------  User Menu  -----------"<<endl<<
 					"      Please Select an Option      "<<endl<<endl
 		<<"[1] View Your Account Info"<<endl
 		<<"[2] See ticket options"<<endl
-		<<"[3] Log Out"<<endl;
+		<<"[3] Log Out/Exit"<<endl;
 		cin>>input;
 		
 		switch(input){
 			case 1:{
+				clear_screen();
 				displayInfo();
 				return 1;
 				break;
 			}
 			
 			case 2:{
+				clear_screen();
 				return 2;
 				break;
 			}
 			
 			case 3:{
-				cout<<endl<<"....Logging Out"<<endl;
 				return 3;
 				break;
 			}
 			
 			default:{
+				clear_screen();
 				cout<<endl<<"--------  Incorrect Option Entered  --------"<<endl;
 			}
 			
