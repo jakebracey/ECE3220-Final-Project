@@ -7,31 +7,25 @@ class user_c{
 	friend class Database;
 	
 	protected:
-	string ID;
-	string fname;
-	string lname;
-	double balance;
-	vector<string> tickets;
+	string ID;//contains the user ID which is what is searched for
+	string fname;//holds a user's first name
+	string lname;//holds a user's last name
+	double balance;//holds the user's balance that they owe
+	vector<string> tickets;//a vector of strings which holds user's tickets that they have bought
 	
 	public:
 	~user_c();
 	user_c();
 	user_c(string f, string l, string id);
-	void virtual displayInfo();
-	unsigned int displayUserMenu();
+	void virtual displayInfo();//displays user's info
+	unsigned int displayUserMenu();//displays menu for a user to view their info and buy tickets for themselves
 };
 
 user_c::user_c(){
-	//ID="-1";
-	//fname="ERROR";
-	//lname="ERROR";
-	//tickets.push_back("ERROR");
-	//tickets_used.push_back("ERROR");
 
 }
 
 user_c::user_c(string f, string l, string id){
-	//cout<<endl<<"User created";
 	fname=f;
 	lname=l;
 	ID=id;
@@ -39,10 +33,11 @@ user_c::user_c(string f, string l, string id){
 }
 
 user_c::~user_c(){
-	//cout<<endl<<"User destroyed";
+	//no memory is malloced so there is no reason to free any memory here
 }
 
 void user_c::displayInfo(){
+	//displays user's info
 	cout<<endl<<fname<< " "<<lname<< " " <<ID<<" ";
 	for(auto i:tickets)
 		cout <<" -"<< i <<"- ";
@@ -70,12 +65,13 @@ unsigned int user_c::displayUserMenu(){
 			}
 			
 			case 2:{
+				//returns to the database so it can have access to the events
 				clear_screen();
 				return 2;
 				break;
 			}
 			
-			case 3:{
+			case 3:{//option to logout
 				return 3;
 				break;
 			}

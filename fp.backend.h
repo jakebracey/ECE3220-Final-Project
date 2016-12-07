@@ -16,28 +16,31 @@ class Database{
 	
 	
 	private:
-	vector<user_c> user_group;
-	vector<admin_user_c> admin_group;
-	vector<event_c> event_group;
+	//vectors of class type
+	vector<user_c> user_group;//vector contains all standard user information which is stored in a class
+	vector<admin_user_c> admin_group;//vector contains all admin user information which is stored in a class
+	vector<event_c> event_group;//vector contains all event information which is stored in a class
 
 	
 	public:
 	~Database();
 	Database();
-	void displayUsers();
-	void displayEvents();
-	int searchUsers(string search_key);
-	int searchAdmins(string search_key);
-	void Login();
-	void displayAdminMenu();
-	void displayBoxMenu();
-	void displayTicketerMenu();
+	void displayUsers();//prints out all users' info, both admin and regular
+	void displayEvents();//prints all events' info
+	int searchUsers(string search_key);//searches the user vector and returns an index to that user
+	int searchAdmins(string search_key);//searches the admin vector and returns an index to that user
+	void Login();//initiates the UI which starts on the login screen
+	void displayAdminMenu();//displays options that are only available to admins
+	void displayBoxMenu();//displays the Box user interface
+	void displayTicketerMenu();//displays the ticketer user interface
 
 };
 
 
 
 void Database::Login(){
+	//start of the Login sequence. This is first part that the user interacts with. 
+	//this method transfers users to the part of the program they are supposed to access
 	
 	string terminal_input;
 	int result;
@@ -47,7 +50,7 @@ void Database::Login(){
 		cin>>terminal_input;
 		
 		
-		if (terminal_input=="-1"){
+		if (terminal_input=="-1"){//'-1' is what is checked to end the program
 			clear_screen();
 			cout<<endl<<"--------  Terminating Program  --------"<<endl;
 			break;	
@@ -58,10 +61,10 @@ void Database::Login(){
 			result=searchAdmins(terminal_input);
 			unsigned int admin_choice=1;
 			unsigned int user_sel=0;
-			bool access_check=true;
+			bool access_check=true;//used so password is not checked continuously, after password is confirmed, this is turned to false
 			while(admin_choice!=0){
 			
-				admin_choice=admin_group[result].displayMenu(access_check);
+				admin_choice=admin_group[result].displayMenu(access_check);//calls the menu function for the admin user that was located
 				
 				if(admin_choice!=0)
 					access_check=false;
@@ -80,10 +83,10 @@ void Database::Login(){
 								
 								
 								switch(user_choice){
-									case 1:{
+									case 1:{//lets the user display their info
 										break;
 									}
-									case 2:{
+									case 2:{//lets the admin view and edit their own info
 										int user_selection=0;
 										while(user_selection!=-1){
 											displayEvents();
@@ -94,30 +97,29 @@ void Database::Login(){
 												cout<<endl<<".....Returning";
 											}
 											else{
-											if(user_selection<=0||user_selection>event_group.size()){
-												clear_screen();
-												cout<<endl<<"Invalid option selected"<<endl;
-											}
-											else{
-												if(event_group[user_selection-1].capacity>0){//checks to make sure there are available tickets
-												(admin_group[result].tickets).push_back(event_group[user_selection-1].ename);
-												admin_group[result].balance+=event_group[user_selection-1].price;
-												event_group[user_selection-1].capacity--;
-												clear_screen();
-												cout<<endl<<"A ticket for the event \""<<event_group[user_selection-1].ename<<"\" has been added to your account"<<endl
-												<<"Your new account balance is: $"<<admin_group[result].balance<<endl;
+												if(user_selection<=0||user_selection>event_group.size()){
+													clear_screen();
+													cout<<endl<<"Invalid option selected"<<endl;
 												}
-												else
-													cout<<"There are no tickets available for this event"<<endl;
-											}	
-											
-										}
+												else{
+													if(event_group[user_selection-1].capacity>0){//checks to make sure there are available tickets
+													(admin_group[result].tickets).push_back(event_group[user_selection-1].ename);
+													admin_group[result].balance+=event_group[user_selection-1].price;
+													event_group[user_selection-1].capacity--;
+													clear_screen();
+													cout<<endl<<"A ticket for the event \""<<event_group[user_selection-1].ename<<"\" has been added to your account"<<endl
+													<<"Your new account balance is: $"<<admin_group[result].balance<<endl;
+													}
+													else
+														cout<<"There are no tickets available for this event"<<endl;
+												}	
+												
+											}
 										}
 										
 										break;
 									}
-									
-									case 3:{
+									case 3:{//lets the user break out of the user menu
 										clear_screen();
 										cout<<endl<<"....Returning to Main Menu"<<endl;
 										break;
@@ -126,6 +128,7 @@ void Database::Login(){
 							}
 						break;
 					}//END of admin option to display user menu
+					
 					case 2:{
 							clear_screen();
 							displayTicketerMenu();
@@ -163,10 +166,10 @@ void Database::Login(){
 				
 				
 				switch(user_choice){
-					case 1:{
+					case 1:{//lets users print out their own info
 						break;
 					}
-					case 2:{
+					case 2:{//lets users see and buy new tickets
 						int user_selection=0;
 						while(user_selection!=-1){
 							displayEvents();
@@ -214,9 +217,10 @@ void Database::Login(){
 		else{
 			cout<<endl<<"--------  User not found  --------"<<endl;
 		}
-	}
-}
+	}//end of first while which essentially ends the program after it is exited
+}//end of Login()
 int Database::searchUsers(string search_key){
+	//goes through all the user classes in search of the ID that it is given
 	int i;
 	for(i=0;user_group.size()>i;i++){
 		 if(user_group[i].ID==search_key)
@@ -227,6 +231,7 @@ int Database::searchUsers(string search_key){
 }
 
 int Database::searchAdmins(string search_key){
+	//goes through all the admin user classes in search of the ID that it is given
 	int i;
 	for(i=0;admin_group.size()>i;i++){
 		 if(admin_group[i].ID==search_key)
@@ -238,10 +243,11 @@ int Database::searchAdmins(string search_key){
 
 
 
-Database::Database(){//NEEDS ERROR CHECKING
+Database::Database(){
 /*	This is the constructor that initializes the program
-	
-	
+	It reads in a user and event input filebuf
+	If they are not present, a default one is created
+		
 */
 	
 	ifstream file("users.txt");
@@ -258,6 +264,7 @@ Database::Database(){//NEEDS ERROR CHECKING
 	string line;
 	while (getline(user_file, line))
 	{
+		//reads an entire input line in, iss essentially parses this string as defined in the IF statement
 		istringstream iss(line);
 		string fname, lname, password,ID;
 		char user_type;
@@ -316,6 +323,8 @@ Database::Database(){//NEEDS ERROR CHECKING
 		}
 	}
 	
+	//part of the code to read in the events
+	//since the events are much less complex, this part is much smaller
 	ifstream events_file("events.txt");
 	string line_e;
 	istringstream iss_events(line_e);
@@ -337,6 +346,7 @@ Database::Database(){//NEEDS ERROR CHECKING
 
 
 void Database::displayUsers(){
+	//method to display all users and their info, both admin and not
 	int i;
 	 cout<<endl<<endl<<"----  User Group Members  ----";
 	 for(i=0;user_group.size()>i;i++){
@@ -350,6 +360,7 @@ void Database::displayUsers(){
 	 cout<<endl<<endl;
 }
 void Database::displayEvents(){
+	//method to display all events, both admin and not
 	int i;
 	cout<<endl<<endl<<"----  Current Events  ----";
 	 for(i=0;event_group.size()>i;i++){
@@ -582,7 +593,7 @@ void Database::displayAdminMenu(){
 			}//END of User management option
 			
 			case 2:{//Display Current Users option
-				
+				//this option enables the admin to print out the current users and their info
 				displayUsers();
 				break;
 			}//END of Display Current Users option

@@ -4,6 +4,8 @@ using namespace std;
 
 
 class admin_user_c : public user_c{
+	//derived class from user_c
+	
 	friend class Database;
 	
 	private:
@@ -31,7 +33,7 @@ unsigned int admin_user_c::displayMenu(bool access_check){
 	cin>>input_pass;
 	clear_screen();
 	
-	if(input_pass!=password){
+	if(input_pass!=password){//checks to see if the user gives their password
 		cout<<endl<<"---------  Access Denied  ---------"<<endl<<
 				    "     Invalid Password Entered    "<<endl<<endl;
 					return 0;
@@ -39,9 +41,28 @@ unsigned int admin_user_c::displayMenu(bool access_check){
 	}
 	cout<<endl<<lname<<", "<<fname<<endl;
 	
-	if(access_level==0){
-		displayUserMenu();
-		return 0;
+	if(access_level==0){//checks to see if the admin user had their access taken away
+		while(input!=-1){
+			cout<<endl<<"-----------  Main Menu  -----------"<<endl<<
+						"      Please Select an Option      "<<endl<<endl
+			<<"[-1] Logout"<<endl		
+			<<"[1]  Login as Regular User"<<endl;	
+			cin>>input;
+		
+			switch(input){
+				case -1:{
+					clear_screen();
+					cout<<endl<<"....Logging Out"<<endl;
+					return 0;
+					break;
+				}
+				
+				case 1:{
+					return 1;
+					break;
+				}
+			}				
+		}
 	}
 	
 	if(access_level==1){//start of Admin User Level
@@ -54,7 +75,7 @@ unsigned int admin_user_c::displayMenu(bool access_check){
 			<<"[3]  Login as Box Office User"<<endl
 			<<"[4]  Login as Admin User"<<endl;
 			cin>>input;
-			
+			//This switch simply returns the function to the correct location in Database to make changes needed
 			switch(input){
 				case -1:{
 					clear_screen();
@@ -99,7 +120,7 @@ unsigned int admin_user_c::displayMenu(bool access_check){
 			<<"[2]  Login as Ticketer User"<<endl
 			<<"[3]  Login as Box Office User"<<endl;
 			cin>>input;
-			
+			//This switch simply returns the function to the correct location in Database to make changes needed
 			switch(input){
 				case -1:{
 					clear_screen();
@@ -171,6 +192,7 @@ unsigned int admin_user_c::displayMenu(bool access_check){
 
 
 admin_user_c::admin_user_c(){
+	//we never use the default constructor so there is nothing here
 	
 }
 
@@ -187,6 +209,7 @@ admin_user_c::admin_user_c(string f, string l, string id, string pass,int access
 
 admin_user_c::admin_user_c(string f, string l, string id, string pass){
 	//this constructor is used to create the Ticketer User class
+	//it is seperate to ensure that this user is not given too much admin access
 	
 	fname=f;
 	lname=l;
@@ -199,9 +222,10 @@ admin_user_c::admin_user_c(string f, string l, string id, string pass){
 
 
 admin_user_c::~admin_user_c(){
-	//cout<<endl<<"Admin/Box/Ticketer user destroyed";
+	//since we didn't malloc any memory there is nothing to free here
 }
 void admin_user_c::displayInfo(){
+	//this displays relevant user info 
 	cout<<endl<<fname<< " "<<lname<< " " <<ID<< " "<<password;
 	for(auto i:tickets)
 		cout <<" -"<< i <<"- ";

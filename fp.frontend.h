@@ -12,6 +12,7 @@ using namespace std;
 #ifndef fp_frontend_H_
 #define fp_frontend_H_
 
+//this file contains all the headers we need as well as a few global functions
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
@@ -22,21 +23,20 @@ using namespace std;
 #include <vector>
 #include <fstream>
 #include <sstream>
-//#include <conio.h>
 #include <cstdlib>
 #include <ctime>
 
-
-void clear_screen()
-{
+//this is a function that ensures compilation on both windows and linux manchines
+void clear_screen(){
 #ifdef _WIN32
     std::system("cls");
 #else
-    // Assume POSIX
     std::system ("clear");
 #endif
 }
 
+//a function that I found a user post on stackoverflow.com
+//it is essentially a sleep() function that works on any system
 void pause(int dur)
 {
 int temp = time(NULL) + dur;
