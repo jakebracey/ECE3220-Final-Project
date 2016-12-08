@@ -371,10 +371,10 @@ void Database::displayEvents(){
 }
 
 Database::~Database(){
-	/*
+	
 	int i;
-	std::ofstream ofs;
-	ofs.open("users.txt", std::ofstream::out | std::ofstream::trunc);
+	std::ofstream file;
+	file.open("users.txt", std::ofstream::out | std::ofstream::trunc);
 	for(i=0;user_group.size()>i;i++){//writes data to file
 		 file << user_group[i].fname << " " << user_group[i].lname << " " << user_group[i].ID << endl;
 	 }
@@ -382,9 +382,9 @@ Database::~Database(){
 		file << admin_group[i].fname << " " << admin_group[i].lname << " " << admin_group[i].ID 		<< admin_group[i].access_level << " " << admin_group[i].password << endl;
 	}	
 
-	ofs.close();
+	file.close();
 	cout<<endl<<"Database Destroyed"<<endl;
-	*/
+	
 }
 
 
