@@ -61,6 +61,9 @@ unsigned int admin_user_c::displayMenu(bool access_check){
 					return 1;
 					break;
 				}
+				default:{
+					cout<<endl<<"--------  Invalid Option Entered  --------"<<endl;
+				}
 			}				
 		}
 	}

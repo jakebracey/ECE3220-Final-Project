@@ -371,7 +371,8 @@ void Database::displayEvents(){
 }
 
 Database::~Database(){
-	
+	/*
+	int i;
 	std::ofstream ofs;
 	ofs.open("users.txt", std::ofstream::out | std::ofstream::trunc);
 	for(i=0;user_group.size()>i;i++){//writes data to file
@@ -383,6 +384,7 @@ Database::~Database(){
 
 	ofs.close();
 	cout<<endl<<"Database Destroyed"<<endl;
+	*/
 }
 
 
