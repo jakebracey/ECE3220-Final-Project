@@ -282,14 +282,14 @@ Database::Database(){
 		//reads an entire input line in, iss essentially parses this string as defined in the IF statement
 		istringstream iss(line);
 		string fname, lname, password,ID;
-		char user_type;
+		int user_type;
 		
 		if ((iss >> fname >> lname >> ID >> user_type >> password)) {
 			int access=0;//sets to 0 to ensure that if any errors occur, user will NOT be given admin rights
 			switch(user_type){
 				
-				case 'a':{
-					//this is the case that creates the admin user typede
+				case 1:{
+					//this is the case that creates the admin user type
 					//after the admin user is created, the profile is added to the correct vector
 					
 					access=1;//access level 1 gives the user full admin access
@@ -299,7 +299,7 @@ Database::Database(){
 					admin_group.push_back(user_temp);
 				break;}
 				
-				case 'b':{
+				case 2:{
 					//this is the case that creates the box attendant user typede
 					//after the box attendant user is created, the profile is added to the correct vector
 					
@@ -309,7 +309,7 @@ Database::Database(){
 					admin_group.push_back(user_temp);
 				break;}
 				
-				case 't':{
+				case 3:{
 					//this is the case that creates the ticketer user type
 					//after the ticketer user is created, the profile is added to the correct vector
 					
@@ -394,7 +394,7 @@ Database::~Database(){
 		 file << user_group[i].fname << " " << user_group[i].lname << " " << user_group[i].ID << endl;
 	 }
 	for(i=0;admin_group.size()>i;i++){//writes data to file
-		file << admin_group[i].fname << " " << admin_group[i].lname << " " << admin_group[i].ID 		<< admin_group[i].access_level << " " << admin_group[i].password << endl;
+		file << admin_group[i].fname << " " << admin_group[i].lname << " " << admin_group[i].ID <<" "<< admin_group[i].access_level << " " << admin_group[i].password << endl;
 	}	
 
 	file.close();
