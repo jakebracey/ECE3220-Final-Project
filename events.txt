@@ -1,4 +1,4 @@
 Football 75 40000
 Basketball 30 15000
 Concert 25 75000
-Volleyball 25 1
+Volleyball 10 1

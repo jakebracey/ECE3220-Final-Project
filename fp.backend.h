@@ -29,6 +29,7 @@ class Database{
 	void displayEvents();//prints all events' info
 	int searchUsers(string search_key);//searches the user vector and returns an index to that user
 	int searchAdmins(string search_key);//searches the admin vector and returns an index to that user
+	int searchEvents(string search_key);//searches the event vector and returns an index to that event
 	void Login();//initiates the UI which starts on the login screen
 	void displayAdminMenu();//displays options that are only available to admins
 	void displayBoxMenu();//displays the Box user interface
@@ -215,6 +216,7 @@ void Database::Login(){
 		}
 		
 		else{
+			clear_screen();
 			cout<<endl<<"--------  User not found  --------"<<endl;
 		}
 	}//end of first while which essentially ends the program after it is exited
@@ -240,6 +242,19 @@ int Database::searchAdmins(string search_key){
 	return -1;
 	
 }
+
+int Database::searchEvents(string search_key){
+	//goes through all the admin user classes in search of the ID that it is given
+	int i;
+	for(i=0;event_group.size()>i;i++){
+		 if(event_group[i].ename==search_key)
+			 return i;
+	 }
+	return -1;
+	
+}
+
+
 
 
 
@@ -863,11 +878,15 @@ string terminal_input;
 					cout<<endl<<"Ticket # to refund, [-1] to escape: ";
 					cin>>return_selection;
 						if(return_selection>0&&return_selection<=(admin_group[result].tickets).size()){
+							int event_index;
+							event_index=searchEvents((admin_group[result].tickets)[return_selection-1]);
+							cout<<(admin_group[result].tickets)[return_selection-1]<<endl;
+							
 							(admin_group[result].tickets).erase ((admin_group[result].tickets).begin()+return_selection-1);
-							admin_group[result].balance-=event_group[return_selection-1].price;
-							event_group[return_selection-1].capacity++;
+							admin_group[result].balance-=event_group[event_index].price;
+							event_group[event_index].capacity++;
 							clear_screen();
-							cout<<endl<<admin_group[result].fname<<" "<<admin_group[result].lname<<" has been credited $ "<<event_group[return_selection-1].price<<endl;
+							cout<<endl<<admin_group[result].fname<<" "<<admin_group[result].lname<<" has been credited $ "<<event_group[event_index].price<<" for the event: \""<<event_group[event_index].ename<<"\" Admin's Account Balance: $"<<admin_group[result].balance<<endl;
 						
 						}
 						else{
@@ -921,11 +940,15 @@ string terminal_input;
 					cout<<endl<<"Ticket # to refund, [-1] to escape: ";
 					cin>>return_selection;
 						if(return_selection>0&&return_selection<=(user_group[result].tickets).size()){
+							int event_index;
+							event_index=searchEvents((user_group[result].tickets)[return_selection-1]);
+							cout<<(user_group[result].tickets)[return_selection-1]<<endl;
+							
 							(user_group[result].tickets).erase ((user_group[result].tickets).begin()+return_selection-1);
-							user_group[result].balance-=event_group[return_selection-1].price;
-							event_group[return_selection-1].capacity++;
+							user_group[result].balance-=event_group[event_index].price;
+							event_group[event_index].capacity++;
 							clear_screen();
-							cout<<endl<<user_group[result].fname<<" "<<user_group[result].lname<<" has been credited $ "<<event_group[return_selection-1].price<<endl;
+							cout<<endl<<user_group[result].fname<<" "<<user_group[result].lname<<" has been credited $ "<<event_group[event_index].price<<" for the event \""<<event_group[event_index].ename<<"\" User's Account Balance: $"<<user_group[result].balance<<endl;
 						
 						}
 						else{

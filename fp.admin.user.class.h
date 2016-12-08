@@ -229,7 +229,7 @@ admin_user_c::~admin_user_c(){
 }
 void admin_user_c::displayInfo(){
 	//this displays relevant user info 
-	cout<<endl<<fname<< " "<<lname<< " " <<ID<< " "<<password;
+	cout<<endl<<fname<< " "<<lname<< " ID: " <<ID<<" Balance: $"<<balance<<" Password: "<<password;
 	for(auto i:tickets)
 		cout <<" -"<< i <<"- ";
 }

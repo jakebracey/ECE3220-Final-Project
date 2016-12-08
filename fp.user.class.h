@@ -38,7 +38,7 @@ user_c::~user_c(){
 
 void user_c::displayInfo(){
 	//displays user's info
-	cout<<endl<<fname<< " "<<lname<< " " <<ID<<" ";
+	cout<<endl<<fname<< " "<<lname<< " ID: " <<ID<<" Balance: $"<<balance;
 	for(auto i:tickets){
 		cout <<" -"<< i <<"- ";
 	}
