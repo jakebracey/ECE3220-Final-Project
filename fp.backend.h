@@ -386,6 +386,8 @@ void Database::displayEvents(){
 }
 
 Database::~Database(){
+	//the destructor is where we backup our data. We do this because when using large file sizes it would take too long to write all updated info to a file each time it is changed
+	//user and event data are saved to their respective files 
 	
 	int i;
 	std::ofstream file;
@@ -395,9 +397,17 @@ Database::~Database(){
 	 }
 	for(i=0;admin_group.size()>i;i++){//writes data to file
 		file << admin_group[i].fname << " " << admin_group[i].lname << " " << admin_group[i].ID <<" "<< admin_group[i].access_level << " " << admin_group[i].password << endl;
-	}	
-
+	}
 	file.close();
+	
+	std::ofstream event_file;
+	event_file.open("events.txt", std::ofstream::out | std::ofstream::trunc);
+	for(i=0;event_group.size()>i;i++){//writes data to file
+		 event_file << event_group[i].ename << " " << event_group[i].price << " " << event_group[i].capacity << endl;
+	 }
+
+	event_file.close();
+	
 	cout<<endl<<"Database Destroyed"<<endl;
 	
 }

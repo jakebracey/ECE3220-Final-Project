@@ -15,13 +15,10 @@
  
  int main(void){
 	 
-	 Database d1;
-	 //EventDatabase e1;
-	 //e1.displayEvents();
-	 d1.displayUsers();
-	 d1.displayEvents();
-	
-	 d1.Login();
+	 Database d1;//initilizes the database and reads in from the input files
+
+	 clear_screen();
+	 d1.Login();//starts the login sequence
 	 
 	 return 0;
 	 
