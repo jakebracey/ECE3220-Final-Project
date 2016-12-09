@@ -1,5 +1,2 @@
-truman tiger 1234
-Default Admin 123 1 Pass
-jake bracey 11 2 qwe
-demo user 12 3 help
-ture dat 13 2 help
+Default Admin 123
+Test User 

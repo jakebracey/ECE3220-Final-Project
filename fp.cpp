@@ -18,6 +18,7 @@
 	 Database d1;//initilizes the database and reads in from the input files
 
 	 clear_screen();
+	 d1.displayUsers();
 	 d1.Login();//starts the login sequence
 	 
 	 return 0;

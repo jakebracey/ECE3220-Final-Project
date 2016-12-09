@@ -269,7 +269,7 @@ Database::Database(){
 	if(!file){
 		ofstream("users.txt");
 		ofstream file("users.txt");
-		string standard = "Default Admin 123 a Pass";
+		string standard = "Default Admin 12345678 1 LetMeInNow";
 		file << standard;
 		file.flush();
 	}
